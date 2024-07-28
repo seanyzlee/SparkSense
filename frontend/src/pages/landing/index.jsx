@@ -53,7 +53,7 @@ const Landing = () => {
               SparkSense
         </Title>
 
-         <Button type="primary" size={size} ghost={true} style={{color: "white", borderColor: "white", padding: '30px 30px', fontSize: '2rem'}}>
+         <Button type="primary" size={size} ghost={true} style={{color: "white", borderColor: "white", padding: '30px 30px', fontSize: '2rem', }}>
               <Link to={'/dashboard'}>Dashboard</Link>
           </Button>
 

@@ -4,13 +4,7 @@ import ONstats from '../contents/ONstats';
 import ABstats from '../contents/ABstats';
 
 import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
   DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
 } from "@ant-design/icons";
 
 import axios from "axios";
@@ -26,9 +20,23 @@ export default function Dashboard() {
   const [selectedProvince, setSelectedProvince] = useState("ontario");
 
   const menuItems = [
-    { key: "ontario", icon: <PieChartOutlined />, label: "Ontario" },
+    { key: "ontario", icon: <DesktopOutlined />, label: "Ontario" },
     { key: "alberta", icon: <DesktopOutlined />, label: "Alberta" },
-  ];
+    { key: "nova scotia", icon: <DesktopOutlined />, label: "Nova Scotia" },
+    { key: "manitoba", icon: <DesktopOutlined />, label: "Manitoba" },
+    { key: "saskatchewan", icon: <DesktopOutlined />, label: "Saskatchewan" },
+    { key: "PEI", icon: <DesktopOutlined />, label: "P.E.I" },
+    { key: "northwest", icon: <DesktopOutlined />, label: "Northwest Territories" },
+    { key: "nunavut", icon: <DesktopOutlined />, label: "Nunavut" },
+    { key: "yukon", icon: <DesktopOutlined />, label: "Yukon" },
+    { key: "newfoundland", icon: <DesktopOutlined />, label: "Newfoundland" },
+    { key: "british columbia", icon: <DesktopOutlined />, label: "British Columbia" },
+    { key: "quebec", icon: <DesktopOutlined />, label: "Quebec" },
+    
+
+  ].sort((a, b) => a.label.localeCompare(b.label));
+
+
 
   const handleMenuClick = ({ key }) => {
     setSelectedProvince(key);
@@ -74,6 +82,22 @@ export default function Dashboard() {
           </Flex>
         </Header>
         <Content style={{ margin: "16px" }}>
+          <Tabs defaultActiveKey="1">
+            <TabPane tab="Information" key="1">
+              {renderContent()}
+             
+            </TabPane>
+            
+
+          </Tabs>
+          <Tabs defaultActiveKey="1">
+            <TabPane tab="Information" key="1">
+              {renderContent()}
+             
+            </TabPane>
+            
+
+          </Tabs>
           <Tabs defaultActiveKey="1">
             <TabPane tab="Information" key="1">
               {renderContent()}
