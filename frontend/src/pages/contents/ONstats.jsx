@@ -233,9 +233,7 @@ if (loading) {
     <Column title="Soil Temperatures" dataIndex="soilTemp" key="soilTemp" />
 
   </Table>
-  <Paragraph>
-    Percentage of the forest that is dry: {percent}%
-  </Paragraph>
+  
         </div>
     );
     }
