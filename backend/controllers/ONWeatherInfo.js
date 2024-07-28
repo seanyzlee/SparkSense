@@ -38,8 +38,7 @@ const Read = async (req, res, next) => {
 const ReadAIPrompt = async (req, res, next) => {
     try {
         const AIText = await WeatherInquire("on");
-        const AITextWithoutSpaces = AIText.replace(/\s+/g, ' ');
-        res.send(AITextWithoutSpaces)
+        res.send(AIText)
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

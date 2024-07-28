@@ -12,7 +12,7 @@ const {Column, ColumnGroup} = Table;
 const {Title, Paragraph} = Typography;
 
 const ONstats = () => {
-    const [percent, setPercent] = useState(0)
+    const percent = 50;
     
     const [AIText, setAIText] = useState("")
     const [loading, setLoading] = useState(true);
@@ -62,15 +62,14 @@ const ONstats = () => {
     setSoilTemperatures(soilTemperatures)
     setSoilMoistures(soilMoistures)
     setAIText(AIText)
-    setPercentFromAIText()
     setLoading(false)
   }
 
-  async function setPercentFromAIText() {
-    let match = AIText.match(/(\d+)%/);
-    let percent = match && match[1] || 0;
-    setPercent(Number(percent))
-    }
+//   async function setPercentFromAIText() {
+//     let match = AIText.match(/(\d+)%/);
+//     let percent = match && match[1] || 0;
+//     setPercent(Number(percent))
+//     }
 
 
 
@@ -186,9 +185,9 @@ if (loading) {
                 <Title level={4} style={{textAlign: 'center', color: 'red'}}>Warning: Percent is above 40!</Title>
             </div>
         )}
-        {percent >= 10 && (
+        {percent >= 10 && percent <= 40 && (
             <div>
-                <Title level={4} style={{textAlign: 'center', color: 'orange'}}>Alert: Percent is above 20!</Title>
+                <Title level={4} style={{textAlign: 'center', color: 'orange'}}>Alert: Percent is between 10 and 40</Title>
             </div>
         )}
         {percent < 10 && (

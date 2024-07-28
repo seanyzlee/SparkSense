@@ -7,9 +7,6 @@ import {
   DesktopOutlined,
 } from "@ant-design/icons";
 
-import axios from "axios";
-import style from 'antd/es/affix/style';
-import Item from 'antd/es/list/Item';
 import { Link } from 'react-router-dom';
 import React from 'react';
 const { Header, Footer, Sider, Content } = Layout;
@@ -48,7 +45,9 @@ export default function Dashboard() {
         return <ONstats />;
       case 'alberta':
         return <ABstats />;
+      
       // Add more cases for other provinces
+
       default:
         return <div>Select a province to view stats</div>;
     }
@@ -90,22 +89,8 @@ export default function Dashboard() {
             
 
           </Tabs>
-          <Tabs defaultActiveKey="1">
-            <TabPane tab="Information" key="1">
-              {renderContent()}
-             
-            </TabPane>
-            
-
-          </Tabs>
-          <Tabs defaultActiveKey="1">
-            <TabPane tab="Information" key="1">
-              {renderContent()}
-             
-            </TabPane>
-            
-
-          </Tabs>
+    
+        
 
         </Content>
         <Footer style={{ textAlign: "center" }}>

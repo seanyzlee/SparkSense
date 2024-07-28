@@ -1,6 +1,5 @@
 require('dotenv').config();
 const axios = require('axios');
-const { config } = require('dotenv');
 
 
 const ONTwillioCheck = async () => {
@@ -16,7 +15,7 @@ const ONTwillioCheck = async () => {
             const authToken = process.env.AUTH_TOKEN
             const client = require('twilio')(accountSid, authToken);
             client.messages
-                .axios.axios.create({
+                .create({
                     body: `There is a fire happening at ${data.city}. Please take caution.`,
                     from: '+12085671065',
                     to: process.env.TWILIO_PHONE_NUMBER
