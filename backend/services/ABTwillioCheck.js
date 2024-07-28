@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 
 
@@ -17,7 +18,7 @@ const ABTwillioCheck = async () => {
             .create({
                 body: `There is a fire happening at ${data.city}. Please take caution.`,
                 from: '+12085671065',
-                to: '+16475629003'
+                to: process.env.TWILIO_PHONE_NUMBER
             })
             .then(message => console.log(message.sid));
 

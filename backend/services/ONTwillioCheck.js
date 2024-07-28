@@ -1,8 +1,10 @@
+require('dotenv').config();
 const axios = require('axios');
+const { config } = require('dotenv');
 
 
 const ONTwillioCheck = async () => {
-    let GET_URI = `http://localhost:5050/on`; 
+    let GET_URI = `http://localhost:5050/on`;
     try {
         const response = await axios.get(GET_URI);
         const weatherData = response.data;
@@ -10,16 +12,16 @@ const ONTwillioCheck = async () => {
         console.log(data.AIText)
         if (data.AIText.includes("True")) {
 
-        const accountSid = process.env.ACCOUNT_SID
-        const authToken = process.env.AUTH_TOKEN
-        const client = require('twilio')(accountSid, authToken);
-        client.messages
-            .create({
-                body: `There is a fire happening at ${data.city}. Please take caution.`,
-                from: '+12085671065',
-                to: '+16475629003'
-            })
-            .then(message => console.log(message.sid));
+            const accountSid = process.env.ACCOUNT_SID
+            const authToken = process.env.AUTH_TOKEN
+            const client = require('twilio')(accountSid, authToken);
+            client.messages
+                .axios.axios.create({
+                    body: `There is a fire happening at ${data.city}. Please take caution.`,
+                    from: '+12085671065',
+                    to: process.env.TWILIO_PHONE_NUMBER
+                })
+                .then(message => console.log(message.sid));
 
         }
         else {
@@ -31,6 +33,6 @@ const ONTwillioCheck = async () => {
         console.error(error);
     }
 
-}  
+}
 
 module.exports = { ONTwillioCheck };
