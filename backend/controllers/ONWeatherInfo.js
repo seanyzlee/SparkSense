@@ -66,6 +66,8 @@ const PostONInfo = async (req, res, next) => {
             const float32Array4 = new Float32Array(updatedWeatherData[i].hourly.visibility);
             const float32Array5 = new Float32Array(updatedWeatherData[i].hourly.windSpeed120m);
             const float32Array6 = new Float32Array(updatedWeatherData[i].hourly.temperature120m);
+            const float32Array7 = new Float32Array(updatedWeatherData[i].hourly.relativeHumidity2m);
+            const float32Array8 = new Float32Array(updatedWeatherData[i].hourly.temperature2m);
             const float64Array1 = new Float64Array(updatedWeatherData[i].hourly.windDirection120m);
             const float64Array2 = new Float64Array(updatedWeatherData[i].hourly.soilTemperature18cm);
             const float64Array3 = new Float64Array(updatedWeatherData[i].hourly.soilMoisture3To9cm);
@@ -79,12 +81,14 @@ const PostONInfo = async (req, res, next) => {
             const windDirection = Array.from(float64Array1);
             const soilTemperature = Array.from(float64Array2);
             const soilMoisture = Array.from(float64Array3);
+            const humidity = Array.from(float32Array7);
+            const temperature = Array.from(float32Array8);
 
             const weatherInfo = {
                 city: updatedWeatherData[i].city,
                 time: updatedWeatherData[i].hourly.time,
-                temperature: updatedWeatherData[i].hourly.temperature,
-                humidity: updatedWeatherData[i].hourlyhumidity,
+                temperature: temperature,
+                humidity: humidity,
                 precipitationProbability: precipitationProbability,
                 precipitation: precipitation,
                 cloudCover: cloudCover,

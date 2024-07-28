@@ -21,6 +21,8 @@ const WeatherInquire = async (province) => {
 
         City: ${data.city}, 
         Times: ${data.time}, 
+        Humidities (in % form out of 100): ${data.humidity},
+        Temperature in 20 meters from each sides (celcius): ${data.temperature},
         Precipitation Probabilities (in decimal form out of 100): ${data.precipitationProbability}, 
         Precipitations (in decimal form out of 0.1): ${data.precipitation}, 
         Cloud Covers (in decimal form out of 100): ${data.cloudCover}, 
