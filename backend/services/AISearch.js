@@ -30,7 +30,11 @@ const WeatherInquire = async (province) => {
         Wind Directions (degrees): ${data.windDirection}, 
         Temperatures in 120 meters from each sides (celcius): ${data.temperature120m}, 
         Soil Temperatures (celcius): ${data.soilTemperature}, 
-        Soil Moistures (out of max 1 m^3/m^3): ${data.soilMoisture}`
+        Soil Moistures (out of max 1 m^3/m^3): ${data.soilMoisture};
+        
+        In additional, in a separate line, please either answer "True" or "False" (NO EXCEPTION) to the question of "Is there a potential for wildfires in the area?" based on the data given above.
+
+        `
 
         console.log("Generating content...");
         const result = await model.generateContent(prompt);

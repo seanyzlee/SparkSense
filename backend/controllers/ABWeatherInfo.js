@@ -2,8 +2,9 @@ const mongoose = require("mongoose")
 const { WeatherInquire } = require("../services/AISearch");
 const { WeatherInfoSchema } = require("../model/weatherInfoSchema");
 const { scan } = require("../services/WeatherServices");
+const { ABTwillioCheck } = require("../services/ABTwillioCheck");
 const singleton = require("../model/weatherInfoSingleton");
-const ABWeatherInfo = mongoose.model("ABWeatherInfo", WeatherInfoSchema);
+const ABWeatherInfo = mongoose.mongoose.model("ABWeatherInfo", WeatherInfoSchema);
 
 const Create = async (req, res, next) => {
     try {
@@ -34,6 +35,14 @@ const ReadAIPrompt = async (req, res, next) => {
     }
 }
 
+const GetTwillioConditions = async (req, res, next) => {
+    try {
+        await ABTwillioCheck();
+        res.send("Twillio check completed");
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
 
 const PostABInfo = async (req, res, next) => {
     try {
@@ -110,4 +119,4 @@ const PostABInfo = async (req, res, next) => {
     }
 };
 
-module.exports = { Create, Read, ReadAIPrompt, PostABInfo };
+module.exports = { Create, Read, ReadAIPrompt, PostABInfo, GetTwillioConditions };

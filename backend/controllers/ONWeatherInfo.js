@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const { WeatherInquire } = require("../services/AISearch");
 const { WeatherInfoSchema } = require("../model/weatherInfoSchema");
 const { scan } = require("../services/WeatherServices");
+const { ONTwillioCheck } = require("../services/ONTwillioCheck");
 const singleton = require("../model/weatherInfoSingleton");
 const ONWeatherInfo = mongoose.model("ONWeatherInfo", WeatherInfoSchema);
 
@@ -39,6 +40,15 @@ const ReadAIPrompt = async (req, res, next) => {
         const AIText = await WeatherInquire("on");
         const AITextWithoutSpaces = AIText.replace(/\s+/g, ' ');
         res.send(AITextWithoutSpaces)
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
+const GetTwillioConditions = async (req, res, next) => {
+    try {
+        await ONTwillioCheck();
+        res.send("Twillio check completed");
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -118,4 +128,4 @@ const PostONInfo = async (req, res, next) => {
 };
 
 
-module.exports = { Create, Read, ReadAIPrompt, PostONInfo };
+module.exports = { Create, Read, ReadAIPrompt, PostONInfo, GetTwillioConditions };

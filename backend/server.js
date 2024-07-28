@@ -7,6 +7,8 @@ const ONWeatherInfo = require('./controllers/ONWeatherInfo');
 const ABWeatherInfo = require('./controllers/ABWeatherInfo');
 const { PostONInfo } = require('./services/ONWeatherPost')
 const { PostABInfo } = require('./services/ABWeatherPost')
+const { ABTwillioCheck } = require('./services/ABTwillioCheck');
+const { ONTwillioCheck } = require('./services/ONTwillioCheck');
 
 // importing twilio
 const twilio = require('twilio');
@@ -25,12 +27,14 @@ app.use(cookieParser());
 async function runScheduledTasks() {
     await PostONInfo();
     await PostABInfo();
+    await ABTwillioCheck();
+    await ONTwillioCheck();
 };
 
 runScheduledTasks();
 
-const THREE_MINUTES = 10 * 60 * 1000;
-setInterval(runScheduledTasks, THREE_MINUTES);
+const TEN_MINUTES = 10 * 60 * 1000;
+setInterval(runScheduledTasks, TEN_MINUTES);
 
 app.use("/", require('./routes/ONWeatherRoute'));
 app.use("/", require('./routes/ABWeatherRoute'));
@@ -53,17 +57,7 @@ process.on("unhandledRejection", err => {
 });
 
 
-// Testing out Twilio
-const accountSid = process.env.ACCOUNT_SID;
-const authToken = process.env.AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
 
-client.messages
-    .create({
-        body: 'Warning! There is a wildfire happening in Waterloo, ON.',
-        from: '+12085671065',
-        to: '+16475629003'
-    })
-    .then(message => console.log(message.sid))
-    .catch(error => console.error(error));
+
+
 
