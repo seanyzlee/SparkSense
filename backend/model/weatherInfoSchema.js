@@ -14,6 +14,7 @@ const WeatherInfoSchema = new mongoose.Schema({
     temperature120m: { type: [Number], required: true },
     soilTemperature: { type: [Number], required: true },
     soilMoisture: { type: [Number], required: true },
+    AIText: { type: String, required: true },
 });
 
 module.exports.WeatherInfoSchema = WeatherInfoSchema;

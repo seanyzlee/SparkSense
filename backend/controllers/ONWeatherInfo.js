@@ -5,6 +5,7 @@ const { scan } = require("../services/WeatherServices");
 const singleton = require("../model/weatherInfoSingleton");
 const ONWeatherInfo = mongoose.model("ONWeatherInfo", WeatherInfoSchema);
 
+
 const Create = async (req, res, next) => {
     try {
         for (let i = 0; i < req.body.length; i++) {
@@ -83,6 +84,7 @@ const PostONInfo = async (req, res, next) => {
             const soilMoisture = Array.from(float64Array3);
             const humidity = Array.from(float32Array7);
             const temperature = Array.from(float32Array8);
+            const AIText = await WeatherInquire("on");
 
             const weatherInfo = {
                 city: updatedWeatherData[i].city,
@@ -98,6 +100,7 @@ const PostONInfo = async (req, res, next) => {
                 temperature120m: temperature120m,
                 soilTemperature: soilTemperature,
                 soilMoisture: soilMoisture,
+                AIText: AIText,
             };
             weatherData.push(weatherInfo);
         }

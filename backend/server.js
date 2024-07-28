@@ -19,14 +19,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-const runScheduledTasks = () => {
-    PostONInfo();
-    PostABInfo();
+async function runScheduledTasks() {
+    await PostONInfo();
+    await PostABInfo();
 };
 
 runScheduledTasks();
 
-const THREE_MINUTES = 3 * 60 * 1000;
+const THREE_MINUTES = 10 * 60 * 1000;
 setInterval(runScheduledTasks, THREE_MINUTES);
 
 app.use("/", require('./routes/ONWeatherRoute'));

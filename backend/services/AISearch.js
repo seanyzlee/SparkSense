@@ -12,7 +12,6 @@ const WeatherInquire = async (province) => {
         console.log("Prompting AI...");
 
         let data = weatherData[weatherData.length - 1];
-        console.log(data)
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
         const prompt = `Provide a % chance of wildfire happening in the area based on the weather data just based on the data given below here. No need to provide any other information other than the chance of natural disaster and wildfire happening in the area at the present. This is based on temperatures, Precipitation Probabilities, Wind Speeds, Soil Moistures, and Soil Temperatures, Humidity, Cloud Covers alone. :
         
@@ -33,7 +32,6 @@ const WeatherInquire = async (province) => {
         Soil Temperatures (celcius): ${data.soilTemperature}, 
         Soil Moistures (out of max 1 m^3/m^3): ${data.soilMoisture}`
 
-        console.log(prompt)
         console.log("Generating content...");
         const result = await model.generateContent(prompt);
         console.log("Content generated successfully!");

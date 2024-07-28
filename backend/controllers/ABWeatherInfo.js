@@ -76,6 +76,7 @@ const PostABInfo = async (req, res, next) => {
             const soilMoisture = Array.from(float64Array3);
             const humidity = Array.from(float32Array7);
             const temperature = Array.from(float32Array8);
+            const AIText = await WeatherInquire("ab");
 
             const weatherInfo = {
                 city: updatedWeatherData[i].city,
@@ -91,8 +92,10 @@ const PostABInfo = async (req, res, next) => {
                 temperature120m: temperature120m,
                 soilTemperature: soilTemperature,
                 soilMoisture: soilMoisture,
+                AIText: AIText,
             };
             weatherData.push(weatherInfo);
+
         }
 
         // Save the weather data to the database
