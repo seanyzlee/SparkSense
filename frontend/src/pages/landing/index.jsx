@@ -1,66 +1,68 @@
-import React from "react";
-import { Flex, Layout } from "antd";
-import { Menu, theme } from "antd";
-import { ConfigProvider } from "antd";
-const { Header, Footer, Content } = Layout;
-
-const headerStyle = {
-  textAlign: "center",
-  color: "#fff",
-  height: 64,
-  paddingInline: 48,
-  lineHeight: "64px",
-  backgroundColor: "#4096ff",
-};
-const contentStyle = {
-  textAlign: "center",
-  minHeight: 120,
-  lineHeight: "120px",
-  color: "#fff",
-  backgroundColor: "#fff",
-};
-
-const footerStyle = {
-  textAlign: "center",
-  color: "#fff",
-  backgroundColor: "#fff",
-};
-const layoutStyle = {
-  borderRadius: 8,
-  overflow: "hidden",
-  width: 16,
-  height: 910,
-};
-
-const items = new Array(2).fill(null).map((_, index) => ({
-  key: index + 1,
-  label: `nav ${index + 1}`,
-}));
+import React, { useState } from 'react';
+import { Button, Flex, Layout, theme } from 'antd';
+import {Typography} from "antd"
+import style from 'antd/es/affix/style';
+import flex from 'antd/es/flex';
+import { Link } from 'react-router-dom';
+const { Header, Content } = Layout;
+const { Title } = Typography;
 
 const Landing = () => {
+  const [size, setSize] = useState('large');
+
   return (
-    <Flex gap="middle" wrap>
-      <Layout style={layoutStyle}>
-        <Header style={headerStyle}>
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={["1"]}
-            items={items}
-            style={{
-              backgroundColor: "#000",
+    <Layout style={{
+      backgroundImage: 'url("https://images8.alphacoders.com/918/918681.jpg")',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      height: '100vh',
+      opacity: 0.8,
 
-              flex: 1,
-              width: "100%",
-            }}
-          />
-        </Header>
+    }}>
+      <Header
+        style={{
+          paddingTop: '20px',
+          justifyContent: 'space-between',
+          backgroundColor: 'transparent',
+          opacity: 1,
+        }}
+      >
 
-        <Content style={contentStyle}>Content</Content>
-        <Footer style={footerStyle}>Footer</Footer>
-      </Layout>
-    </Flex>
+        <Flex gap="middle" align='flex-start' horizontal justify='flex-end' >
+          <Button ghost={true} type='primary' style={{color: "white", border: "none", fontSize:"1.25rem"}}>Home</Button>
+          <Button  ghost={true}  type='primary' style={{color: "white", border: 'none', fontSize:"1.25rem"}}><Link to={'/dashboard'}>Dashboard</Link></Button>
+       
+        </Flex>
+     
+      </Header>
+      <Content
+        style={{
+          padding: '175px 48px',
+
+        }}
+        
+      >
+        <Flex gap="middle" align='center' vertical justify='center' >
+
+        <Title 
+          italic={true}
+          strong
+          style={{fontSize: '4rem', flex: 1, textAlign: 'center', color: 'white', textShadow: '2px 2px 4px #000000', opacity: 1}}
+            >
+              SparkSense
+        </Title>
+
+         <Button type="primary" size={size} ghost={true} style={{color: "white", borderColor: "white", padding: '30px 30px', fontSize: '2rem'}}>
+              Dashboard
+          </Button>
+
+          </Flex>
+ 
+        
+      </Content>
+     
+    </Layout>
   );
 };
-
 export default Landing;

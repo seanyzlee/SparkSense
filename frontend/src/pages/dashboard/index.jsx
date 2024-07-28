@@ -1,119 +1,8 @@
-// import React, { useState } from "react";
-// import {
-//   LaptopOutlined,
-//   NotificationOutlined,
-//   UserOutlined,
-//   DesktopOutlined,
-//   FileOutlined,
-//   PieChartOutlined,
-//   TeamOutlined,
-// } from "@ant-design/icons";
-// import { Layout, Menu, Tabs, theme } from "antd";
-// import InformationModal from "./information-modal";
-// import AlertNotifcation from "./alert-notification";
-// const { Header, Footer, Sider, Content } = Layout;
+import  { useEffect, useState } from 'react';
+import { Button, Divider, Flex, Layout, Menu, Tabs, theme } from "antd";
+import ONstats from '../contents/ONstats';
+import ABstats from '../contents/ABstats';
 
-// // Start testing code
-// function getItem(label, key, icon, children) {
-//   return {
-//     key,
-//     icon,
-//     children,
-//     label,
-//   };
-// }
-
-// const sideBarItems = [
-//   getItem("Overview", "1", <DesktopOutlined />),
-//   getItem("Alerts", "2", <PieChartOutlined />),
-//   getItem("Radio", "sub1", <TeamOutlined />, [
-//     getItem("All", "3"),
-//     getItem("CAF", "4"),
-//     getItem("Fire", "5"),
-//     getItem("Paramedics", "6"),
-//     getItem("Police", "7"),
-//   ]),
-//   getItem("Records", "8", <FileOutlined />),
-// ];
-
-// const headerStyle = {
-//   textAlign: "center",
-//   color: "#fff",
-//   height: 64,
-//   paddingInline: 48,
-//   lineHeight: "64px",
-//   backgroundColor: "#4096ff",
-// };
-
-// const contentStyle = {
-//   textAlign: "center",
-//   minHeight: 120,
-//   lineHeight: "120px",
-//   color: "#fff",
-//   backgroundColor: "#0958d9",
-// };
-
-// const siderStyle = {
-//   textAlign: "center",
-//   lineHeight: "120px",
-//   color: "#fff",
-//   backgroundColor: "#1677ff",
-// };
-
-// const footerStyle = {
-//   textAlign: "center",
-//   color: "#fff",
-//   backgroundColor: "#4096ff",
-// };
-
-// const layoutStyle = {
-//   borderRadius: 8,
-//   overflow: "hidden",
-//   width: "100%",
-//   height: "98vh",
-//   // width: "calc(50% - 8px)",
-//   // maxWidth: "calc(50% - 8px)",
-// };
-
-// const Dashboard = () => {
-//   const [collapsed, setCollapsed] = useState(false);
-//   const {
-//     token: { colorBgContainer, borderRadiusLG },
-//   } = theme.useToken();
-
-//   // End testing code
-
-//   <Layout style={layoutStyle}>
-//     <Header style={headerStyle}>Header</Header>
-//     <Layout>
-//       <Sider
-//         collapsible
-//         collapsed={collapsed}
-//         onCollapse={(value) => setCollapsed(value)}
-//       >
-//         <div className="demo-logo-vertical" />
-//         <Menu
-//           theme="light"
-//           defaultSelectedKeys={["1"]}
-//           mode="inline"
-//           items={sideBarItems}
-//           style={{
-//             marginTop: "4px",
-//           }}
-//         />
-//       </Sider>
-//       {/* <Sider width="25%" style={siderStyle}>
-//         Sider
-//       </Sider> */}
-//       <Content style={contentStyle}>Content</Content>
-//     </Layout>
-//     <Footer style={footerStyle}>Footer</Footer>
-//   </Layout>;
-// };
-
-// export default Dashboard;
-
-import React, { useState } from "react";
 import {
   LaptopOutlined,
   NotificationOutlined,
@@ -123,138 +12,82 @@ import {
   PieChartOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Tabs, theme } from "antd";
-import InformationModal from "./information-modal";
-import AlertNotifcation from "./alert-notification";
-const { Header, Content, Footer, Sider } = Layout;
 
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
+import axios from "axios";
+import style from 'antd/es/affix/style';
+import Item from 'antd/es/list/Item';
+import { Link } from 'react-router-dom';
+import React from 'react';
+const { Header, Footer, Sider, Content } = Layout;
+const { TabPane } = Tabs;
 
-const sideBarItems = [
-  getItem("Overview", "1", <DesktopOutlined />),
-  getItem("Alerts", "2", <PieChartOutlined />),
-  getItem("Radio", "sub1", <TeamOutlined />, [
-    getItem("All", "3"),
-    getItem("CAF", "4"),
-    getItem("Fire", "5"),
-    getItem("Paramedics", "6"),
-    getItem("Police", "7"),
-  ]),
-  getItem("Records", "8", <FileOutlined />),
-];
+export default function Dashboard() {
 
-const Dashboard = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  const [selectedProvince, setSelectedProvince] = useState("ontario");
 
-  const currentLocations = [
-    {
-      label: "Ontario",
-      key: "0",
-      children: "Component for Ontario",
-    },
-    {
-      label: "Alberta",
-      key: "1",
-      children: "Component for Alberta",
-    },
-    {
-      label: "+",
-      key: "2",
-      children: (
-        <>
-          <h1>TEST</h1>
-          <input type="text"></input>
-          <button type="submit">New Tab</button>
-          <h2>Above THIS!</h2>
-        </>
-      ),
-    },
+  const menuItems = [
+    { key: "ontario", icon: <PieChartOutlined />, label: "Ontario" },
+    { key: "alberta", icon: <DesktopOutlined />, label: "Alberta" },
   ];
-  const [locations, setLocations] = useState(currentLocations);
+
+  const handleMenuClick = ({ key }) => {
+    setSelectedProvince(key);
+  };
+
+    const renderContent = () => {
+    switch (selectedProvince) {
+      case 'ontario':
+        return <ONstats />;
+      case 'alberta':
+        return <ABstats />;
+      // Add more cases for other provinces
+      default:
+        return <div>Select a province to view stats</div>;
+    }
+  };
+
   return (
-    <Layout
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      <AlertNotifcation></AlertNotifcation>
-      <Layout
-        style={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <Header
-          style={{
-            display: "flex",
-            padding: 0,
-            background: colorBgContainer,
-          }}
-        />
-
-        <Content
-          style={{
-            // margin: "0 16px",
-            display: "flex",
-            flexDirection: "row",
-          }}
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider collapsible>
+        <Menu
+          theme="dark"
+          defaultSelectedKeys={["ontario"]}
+          mode="inline"
+          onClick={handleMenuClick}
         >
-          <div>
-            <Sider
-              collapsible
-              collapsed={collapsed}
-              onCollapse={(value) => setCollapsed(value)}
-            >
-              <div className="demo-logo-vertical" />
-              <Menu
-                theme="light"
-                defaultSelectedKeys={["1"]}
-                mode="inline"
-                items={sideBarItems}
-                style={{
-                  marginTop: "4px",
-                }}
-              />
-            </Sider>
+          {menuItems.map(item => (
+            <Menu.Item key={item.key} icon={item.icon}>
+              {item.label}
+            </Menu.Item>
+          ))}
+        </Menu>
+      </Sider>
+      <Layout>
+        <Header style={{ padding: 0, background: theme === 'light' ? '#fff' : '#001529' }}>
+          <Flex align="flex-start" justify="flex-end" horizontal>
+          <div style={{ color: "#fff", textAlign: "center", fontSize: "24px" }}>
+            SparkSense Dashboard
           </div>
+          <Divider type="vertical" />
+          <Button ghost={true} type='primary' style={{color: "white", border: "none", fontSize:"1.25rem", marginTop:'1rem'}}><Link to={'/'}>Home</Link></Button>
 
-          <div
-            style={{
-              margin: "10px 0",
-              padding: 24,
-              height: "97%",
-              // minHeight: 360,
-              width: "100%",
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            <Tabs defaultActiveKey="0" centered items={currentLocations} />
-          </div>
+          </Flex>
+        </Header>
+        <Content style={{ margin: "16px" }}>
+          <Tabs defaultActiveKey="1">
+            <TabPane tab="Information" key="1">
+              {renderContent()}
+             
+            </TabPane>
+            
+
+          </Tabs>
+
         </Content>
-
-        <Footer
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            textAlign: "center",
-          }}
-        >
-          SparkSense © {new Date().getFullYear()}. Created for StarterHacks.
+        <Footer style={{ textAlign: "center" }}>
+          SparkSense ©2024 Created by SparkSense
         </Footer>
       </Layout>
     </Layout>
   );
-};
-
-export default Dashboard;
+}

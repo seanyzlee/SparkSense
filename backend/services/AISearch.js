@@ -16,7 +16,7 @@ const WeatherInquire = async (province) => {
         const prompt = `Provide a % chance of wildfire happening in the area based on the weather data just based on the data given below here. No need to provide any other information other than the chance of natural disaster and wildfire happening in the area at the present. This is based on temperatures, Precipitation Probabilities, Wind Speeds, Soil Moistures, and Soil Temperatures, Humidity, Cloud Covers alone. :
         
         This is data that is based on the weather data in the area in the 3 days. With each delimited by a comma being an hour of data until the next day starts for 2 days.
-        With that in mind, here is the data and pleae answer the question with the template of 'The chance of wildfire happening in the area is %' with the % being the chance of wildfire happening in the area.' with a brief reason why you think that is the case.: 
+        With that in mind, here is the data and pleae answer the question with the template of 'The chance of wildfire happening in the area is %' with the % being the chance of wildfire happening in the area.' with a brief reason why you think that is the case. PLEASE ALWAYS INCLUDE A PERCENTAGE SIGN AT THE END OF THE ANSWER TO INDICATE POTENTIAL FOR WILDFIRES.: 
 
         City: ${data.city}, 
         Times: ${data.time}, 
