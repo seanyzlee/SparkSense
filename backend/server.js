@@ -3,8 +3,6 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
-const ONWeatherInfo = require('./controllers/ONWeatherInfo');
-const ABWeatherInfo = require('./controllers/ABWeatherInfo');
 const { PostONInfo } = require('./services/ONWeatherPost')
 const { PostABInfo } = require('./services/ABWeatherPost')
 const { ABTwillioCheck } = require('./services/ABTwillioCheck');
@@ -24,11 +22,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+
 async function runScheduledTasks() {
     await PostONInfo();
     await PostABInfo();
     await ABTwillioCheck();
     await ONTwillioCheck();
+    console.log("Scheduled tasks completed!");
+
+
 };
 
 runScheduledTasks();

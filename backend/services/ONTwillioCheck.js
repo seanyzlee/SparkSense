@@ -17,7 +17,7 @@ const ONTwillioCheck = async () => {
             client.messages
                 .create({
                     body: `There is a fire happening at ${data.city}. Please take caution.`,
-                    from: '+12085671065',
+                    from: '+16692362284',
                     to: process.env.TWILIO_PHONE_NUMBER
                 })
                 .then(message => console.log(message.sid));
